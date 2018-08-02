@@ -171,4 +171,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], @analyst.most_sold_item_for_merchant(123456789)
   end
   
+  def test_changing_values_from_nil_to_zero
+    hash = {"a" => 1, "b" => 2, "c" => 3, "d" => nil}
+    expected = {"a" => 1, "b" => 2, "c" => 3, "d" => 0}
+    assert_equal expected, @analyst.nil_to_zero(hash)
+  end
+  
+  def test_ranks_merchants
+    assert_equal [nil, @mer_repo.merchants[2], @mer_repo.merchants[1], @mer_repo.merchants[0]], @analyst.merchants_ranked_by_revenue 
+  end
+  
+  
 end
