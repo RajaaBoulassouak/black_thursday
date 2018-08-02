@@ -451,5 +451,27 @@ class SalesAnalyst
     item_prices = invoice_items_total_price(invoice_items)
     top_item(item_prices).first
   end
+  
+  def nil_to_zero(hash)
+    zero_hash = {}
+    hash.each do |key, value|
+      if value.nil? 
+         value = 0
+      end 
+      zero_hash[key] = value
+    end
+      zero_hash
+  end 
+  
+  def merchants_ranked_by_revenue
+    totals = nil_to_zero(revenue_per_merchant)
+    sorting = totals.sort_by do |merchant|
+      merchant[1]
+    end.reverse
+    sorting.map do |merchant|
+      @merchants.find_by_id(merchant[0])
+    end
+  end
+
 
 end
